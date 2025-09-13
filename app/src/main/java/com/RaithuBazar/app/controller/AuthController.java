@@ -6,6 +6,7 @@ import com.RaithuBazar.app.dto.LoginRequest;
 import com.RaithuBazar.app.dto.SellerRegisterRequest;
 import com.RaithuBazar.app.enitity.User;
 import com.RaithuBazar.app.service.AuthService;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,14 +26,10 @@ public class AuthController {
     }
 
     @PostMapping("/register-seller")
-    public ResponseEntity<?> register(@RequestBody SellerRegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody SellerRegisterRequest request) {
         AuthResponse response = authService.registerAsSeller(request);
-        return ResponseEntity.ok(Map.of(
-                "message", "User registered successfully",
-                "user", response
-        ));
+        return ResponseEntity.ok(response);
     }
-
     @PostMapping("/register-buyer")
     public ResponseEntity<?> register(@RequestBody BuyerRegisterRequest request) {
         AuthResponse response = authService.registerAsBuyer(request);
