@@ -12,7 +12,7 @@ const Home: React.FC = () => {
           className="text-2xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
         >
-          🌱 Community Farming
+          🌱 Raithu Baazar
         </h1>
         <div className="flex gap-4">
           <button
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex flex-col items-center justify-center flex-grow text-center px-6">
         <h2 className="text-4xl font-bold text-green-700 mb-4">
-          Welcome to Community Farming 🌾
+          Welcome to Raithu Baazar 🌾
         </h2>
         <p className="text-lg text-gray-700 max-w-2xl mb-6">
           Connecting <span className="font-semibold">farmers</span> and{" "}
