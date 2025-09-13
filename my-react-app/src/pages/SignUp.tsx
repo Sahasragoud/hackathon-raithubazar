@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -6,20 +7,12 @@ const SignUp: React.FC = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = () => {
-    if (!username || !email || !address || !phone || !password) {
-      alert("Please fill all fields!");
-      return;
-    }
-
-    if (!/^\d{10}$/.test(phone)) {
-      alert("Phone number must be 10 digits");
-      return;
-    }
-
     console.log({ username, email, address, phone, password });
     alert("Sign Up successful!");
+    navigate("/login");
   };
 
   return (
@@ -29,62 +22,83 @@ const SignUp: React.FC = () => {
           Sign Up
         </h2>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Username</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        </div>
+        {/* Username */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Username
+        </label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Enter your username"
+        />
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        </div>
+        {/* Email */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Email
+        </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Enter your email"
+        />
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Address</label>
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        </div>
+        {/* Address */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Address
+        </label>
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Enter your address"
+        />
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Phone Number</label>
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        </div>
+        {/* Phone */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Phone Number
+        </label>
+        <input
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Enter your phone number"
+        />
 
-        <div className="mb-6">
-          <label className="block mb-1 font-medium">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        </div>
+        {/* Password */}
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Password
+        </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-6 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Enter your password"
+        />
 
+        {/* Button */}
         <button
           onClick={handleSignUp}
-          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
+          className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
         >
           Sign Up
         </button>
+
+        <p className="mt-4 text-center">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="text-green-600 cursor-pointer hover:underline"
+          >
+            Login
+          </span>
+        </p>
       </div>
     </div>
   );
