@@ -3,20 +3,28 @@ import { useNavigate } from "react-router-dom";
 import AuthService from "../Services/UserService";
 import type { SellerRegisterRequest } from "../Type/SellerRegisterRequest";
 
-
-
 const SignUp: React.FC = () => {
-
-  const [formData, setFormData] = useState<SellerRegisterRequest>();
-  
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSignUp = async (formData : SellerRegisterRequest) => {
+  const handleSignUp = async () => {
+    const formData: SellerRegisterRequest = {
+      username,
+      email,
+      address,
+      phone,
+      password
+    };
+
     try {
       const response = await AuthService.registerSeller(formData);
 
-      console.log(response.data);
+      console.log("Response:", response.data);
       
       alert("Sign Up successful!");
       navigate("/login");
