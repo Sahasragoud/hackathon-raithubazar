@@ -1,6 +1,7 @@
 package com.RaithuBazar.app.controller;
 
 import com.RaithuBazar.app.dto.AuthResponse;
+import com.RaithuBazar.app.dto.BuyerRegisterRequest;
 import com.RaithuBazar.app.dto.LoginRequest;
 import com.RaithuBazar.app.dto.SellerRegisterRequest;
 import com.RaithuBazar.app.enitity.User;
@@ -23,9 +24,18 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register-seller")
     public ResponseEntity<?> register(@RequestBody SellerRegisterRequest request) {
         AuthResponse response = authService.registerAsSeller(request);
+        return ResponseEntity.ok(Map.of(
+                "message", "User registered successfully",
+                "user", response
+        ));
+    }
+
+    @PostMapping("/register-buyer")
+    public ResponseEntity<?> register(@RequestBody BuyerRegisterRequest request) {
+        AuthResponse response = authService.registerAsBuyer(request);
         return ResponseEntity.ok(Map.of(
                 "message", "User registered successfully",
                 "user", response
