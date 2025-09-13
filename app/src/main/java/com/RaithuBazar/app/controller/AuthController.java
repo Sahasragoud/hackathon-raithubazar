@@ -31,12 +31,9 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
     @PostMapping("/register-buyer")
-    public ResponseEntity<?> register(@RequestBody BuyerRegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody BuyerRegisterRequest request) {
         AuthResponse response = authService.registerAsBuyer(request);
-        return ResponseEntity.ok(Map.of(
-                "message", "User registered successfully",
-                "user", response
-        ));
+        return ResponseEntity.ok(response);
     }
 
 

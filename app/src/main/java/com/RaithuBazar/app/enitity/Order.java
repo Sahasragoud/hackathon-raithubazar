@@ -1,5 +1,6 @@
 package com.RaithuBazar.app.enitity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,15 +29,18 @@ public class Order {
     // Buyer placing the order
     @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
+    @JsonIgnore
     private User buyer;
 
     // Seller receiving the order
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
+    @JsonIgnore
     private User seller;
 
     // Product being ordered
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 }

@@ -23,6 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll() // allow register/login
                         .requestMatchers("/api/products/**").permitAll() // allow register/login
                         .requestMatchers("/api/orders/**").permitAll() // allow register/login
+                        .requestMatchers("/api/admin/**").permitAll() // allow register/login
                         .anyRequest().authenticated() // protect other endpoints
                 )
                 .httpBasic(httpBasic -> {}); // still allow basic auth if needed

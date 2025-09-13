@@ -22,11 +22,11 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final ProductImageRepository imageRepository;
+    private final ProductImageRepository productImageRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository,ProductImageRepository imageRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository,ProductImageRepository productImageRepository) {
         this.productRepository = productRepository;
-        this.imageRepository = imageRepository;
+        this.productImageRepository = productImageRepository;
         this.userRepository = userRepository;
     }
 
@@ -67,15 +67,47 @@ public class ProductServiceImpl implements ProductService {
                 .imageUrl(filePath.toString()) // save renamed file path
                 .product(product)
                 .build();
-        imageRepository.save(productImage);
+        productImageRepository.save(productImage);
 
         return product;
     }
 
 
     @Override
-    public Product editProduct() {
-        return null;
+    public Product editProduct(Long productId, ProductRequest dto, MultipartFile imageFile) throws IOException {
+        // 1️⃣ Fetch existing product
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
+
+        // 2️⃣ Update fields from DTO
+        product.setName(dto.getName());
+        product.setCategory(dto.getCategory());
+        product.setPrice(dto.getPrice());
+        product.setQuantity(dto.getQuantity());
+        product.setUnit(dto.getUnit());
+
+        product = productRepository.save(product);
+
+        // 3️⃣ If a new image is provided, replace it
+        if (imageFile != null && !imageFile.isEmpty()) {
+            // Optionally delete old image file here
+
+            String renamedFile = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+            Path folder = Paths.get("uploads/");
+            if (!Files.exists(folder)) Files.createDirectories(folder);
+            Path filePath = folder.resolve(renamedFile);
+            Files.write(filePath, imageFile.getBytes());
+
+            ProductImage productImage = productImageRepository.findByProductId(productId);
+            if (productImage == null) {
+                productImage = new ProductImage();
+                productImage.setProduct(product);
+            }
+            productImage.setImageUrl(filePath.toString());
+            productImageRepository.save(productImage);
+        }
+
+        return product;
     }
 
     @Override

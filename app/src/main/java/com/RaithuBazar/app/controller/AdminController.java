@@ -5,7 +5,9 @@ import com.RaithuBazar.app.enitity.Product;
 import com.RaithuBazar.app.enitity.User;
 import com.RaithuBazar.app.service.AdminService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,15 @@ public class AdminController {
 
     // ✅ Get all users (with pagination)
     @GetMapping("/users")
-    public ResponseEntity<Page<User>> getAllUsers(Pageable pageable) {
-        return ResponseEntity.ok(adminService.getAllUsers(pageable));
+    public ResponseEntity<Page<User>> getAllUsers(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortField,
+            @RequestParam String sortDirection
+    ) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(direction, sortField);
+        return ResponseEntity.ok(adminService.getAllUsers(PageRequest.of(page,size, sortBy)));
     }
 
     // ✅ Get all orders (with pagination)

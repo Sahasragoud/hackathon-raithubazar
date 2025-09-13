@@ -16,4 +16,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations(uploadPath)
                 .setCachePeriod(3600);
     }
+
+
 }
