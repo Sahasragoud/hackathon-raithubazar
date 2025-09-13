@@ -10,10 +10,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // serve file system directory 'uploads' at URL /uploads/**
+        // Serve file system directory 'uploads' at URL /uploads/**
         String uploadPath = Paths.get("uploads").toAbsolutePath().toUri().toString();
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(uploadPath)
                 .setCachePeriod(3600);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")  // Apply CORS for all endpoints
+                .allowedOrigins("http://localhost:5174")  // Your frontend origin
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
