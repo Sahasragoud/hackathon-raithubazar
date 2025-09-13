@@ -1,20 +1,18 @@
 package com.RaithuBazar.app.service;
 
+import com.RaithuBazar.app.dto.ProductRequest;
 import com.RaithuBazar.app.enitity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface ProductService {
 
-    // Get all products of a specific seller
     Page<Product> getProductsBySellerId(Long sellerId, Pageable pageable);
-
-    // Get a product by ID
     Product getProductById(Long id);
-
-    // Save (add/update) a product
-    Product saveProduct(Product product);
-
-    // Delete product by ID
+    public Product addProductWithImage(ProductRequest dto, MultipartFile imageFile) throws IOException;
+    Product editProduct();
     void deleteProduct(Long id);
 }

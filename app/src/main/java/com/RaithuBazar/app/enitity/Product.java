@@ -2,6 +2,7 @@ package com.RaithuBazar.app.enitity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,20 +18,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
-
-    private String category;   // Fruits, Vegetables, Grains
+    private String category;
     private Double price;
-    private Integer quantity;  // available stock
-    private String unit;       // e.g., KG, Dozen
+    private Integer quantity;
+    private String unit;
 
-    // Seller who owns this product
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
     private User seller;
 
-    // Orders that include this product
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ProductImage image;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 }
