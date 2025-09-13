@@ -14,7 +14,6 @@ API.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Session expired or invalid
       localStorage.removeItem("user");
-      localStorage.removeItem("token");
       window.location.href = "/login"; // force redirect to login
     }
     return Promise.reject(error);

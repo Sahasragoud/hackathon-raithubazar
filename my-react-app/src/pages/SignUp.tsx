@@ -28,8 +28,7 @@ const SignUp: React.FC = () => {
       
       alert("Sign Up successful!");
       navigate("/login");
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Sign Up failed");
+    } catch (error) {
       console.error("Sign Up error:", error);
     }
   };
