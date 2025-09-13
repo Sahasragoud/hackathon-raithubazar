@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import AuthService from "../Services/UserService";
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log({ username, password });
-    alert("Login successful!");
-    navigate("/"); // Redirect after login
+  const handleLogin = async () => {
+    try {
+      const response = await AuthService.login({ username, password });
+      const { user, token } = response.data;
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+
+      alert("Login successful!");
+      navigate("/");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Login failed");
+    }
   };
 
   return (
@@ -19,7 +28,6 @@ const Login: React.FC = () => {
           Login
         </h2>
 
-        {/* Username */}
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Username
         </label>
@@ -31,7 +39,6 @@ const Login: React.FC = () => {
           placeholder="Enter your username"
         />
 
-        {/* Password */}
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Password
         </label>
@@ -43,7 +50,6 @@ const Login: React.FC = () => {
           placeholder="Enter your password"
         />
 
-        {/* Button */}
         <button
           onClick={handleLogin}
           className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
