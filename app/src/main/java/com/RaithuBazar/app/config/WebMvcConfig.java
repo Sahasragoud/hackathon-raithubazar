@@ -17,9 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .setCachePeriod(3600);
     }
 
-<<<<<<< HEAD
-
-=======
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // Apply CORS for all endpoints
@@ -28,5 +25,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
->>>>>>> 7bf83b0a01cbf49c889258a26c4f19a343e39466
 }

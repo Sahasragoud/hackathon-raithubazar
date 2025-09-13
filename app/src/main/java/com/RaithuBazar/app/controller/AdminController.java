@@ -36,8 +36,15 @@ public class AdminController {
 
     // ✅ Get all orders (with pagination)
     @GetMapping("/orders")
-    public ResponseEntity<Page<Order>> getAllOrders(Pageable pageable) {
-        return ResponseEntity.ok(adminService.getAllOrders(pageable));
+    public ResponseEntity<Page<Order>> getAllOrders(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortField,
+            @RequestParam String sortDirection
+    ) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(direction, sortField);
+        return ResponseEntity.ok(adminService.getAllOrders(PageRequest.of(page,size, sortBy)));
     }
 
     // ✅ Get all products (with pagination)
