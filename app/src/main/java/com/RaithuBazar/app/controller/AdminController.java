@@ -74,4 +74,10 @@ public class AdminController {
         adminService.deleteOrder(id);
         return ResponseEntity.ok("Order deleted successfully");
     }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+        adminService.deleteProduct(id);
+        return ResponseEntity.ok("Order deleted successfully");
+    }
 }

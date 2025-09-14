@@ -14,4 +14,6 @@ public interface AdminService {
     Page<Product> getAllProducts(Pageable pageable);
     void deleteUser(Long UserId);
     void deleteOrder(Long Order);
+    void deleteProduct(Long productId);
+
 }

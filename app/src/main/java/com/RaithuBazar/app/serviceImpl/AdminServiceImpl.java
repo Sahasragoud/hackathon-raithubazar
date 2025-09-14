@@ -54,4 +54,13 @@ public class AdminServiceImpl implements AdminService {
         }
         orderRepository.deleteById(orderId);
     }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        if(!productRepository.existsById(productId)){
+            throw new RuntimeException("Product not found with id: " + productId);
+        }
+
+        productRepository.deleteById(productId);
+    }
 }

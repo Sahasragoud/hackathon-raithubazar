@@ -1,5 +1,6 @@
 package com.RaithuBazar.app.dto;
 
+import com.RaithuBazar.app.enums.OrderStatus;
 import lombok.*;
 
 @Getter
@@ -13,6 +14,6 @@ public class OrderResponse {
     private String sellerName;
     private String buyerName;
     private Integer quantity;
-    private String status;
+    private OrderStatus status;
     private String address;
 }

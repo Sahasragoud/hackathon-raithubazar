@@ -1,5 +1,6 @@
 package com.RaithuBazar.app.enitity;
 
+import com.RaithuBazar.app.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,7 +22,8 @@ public class Order {
 
     private LocalDateTime orderDate;
 
-    private String status; // PENDING, CONFIRMED, DELIVERED, CANCELED
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     private Integer quantity;   // units ordered
     private Double totalPrice;  // price * quantity
