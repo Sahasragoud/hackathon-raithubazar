@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import AuthService from "../Services/UserService";
 import type { SellerRegisterRequest } from "../Type/SellerRegisterRequest";
 

@@ -1,38 +1,3 @@
-// // src/context/CartContext.tsx
-// import React, { createContext, useState, useContext } from "react";
-// import type { ReactNode } from "react";
-// import type { Products } from "../pages/types";   // ✅ type-only import
-
-
-// interface CartContextType {
-//   cart: Products[];
-//   addToCart: (product: Products) => void;
-// }
-
-// const CartContext = createContext<CartContextType | undefined>(undefined);
-
-// export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-//   const [cart, setCart] = useState<Products[]>([]);
-
-//   const addToCart = (product: Products) => {
-//     setCart((prevCart) => [...prevCart, product]);
-//     alert(`${product.name} added to cart ✅`);
-//   };
-
-//   return (
-//     <CartContext.Provider value={{ cart, addToCart }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
-// export const useCart = (): CartContextType => {
-//   const context = useContext(CartContext);
-//   if (!context) {
-//     throw new Error("useCart must be used inside a CartProvider");
-//   }
-//   return context;
-// };
 
 
 
