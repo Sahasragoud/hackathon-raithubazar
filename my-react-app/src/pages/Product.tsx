@@ -27,22 +27,23 @@ interface Product {
   seller: User;
   image?: string;
   description?: string;
+  rating?: number; // Added rating field
 }
 
 const Products: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [products, setProducts] = useState<Product[]>([
-    { id: 1, name: "Fresh Tomatoes", category: "Vegetables", price: 50, quantity: 20, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f1, description: "Juicy red tomatoes, perfect for salads and curries." },
-    { id: 2, name: "Golden Potatoes", category: "Vegetables", price: 30, quantity: 50, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f2, description: "Farm-fresh potatoes, ideal for fries and gravies." },
-    { id: 3, name: "Sweet Mangoes", category: "Fruits", price: 120, quantity: 15, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f3, description: "Ripe, juicy mangoes with a natural sweetness." },
-    { id: 4, name: "Organic Wheat", category: "Grains", price: 40, quantity: 100, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f4, description: "High-quality wheat grains for healthy flour." },
-    { id: 5, name: "Bananas", category: "Fruits", price: 60, quantity: 30, unit: "Dozen", seller: { id: 1, name: "Ramesh Kumar" }, image: f5, description: "Fresh yellow bananas full of energy." },
-    { id: 6, name: "Carrots", category: "Vegetables", price: 45, quantity: 25, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f6, description: "Crunchy carrots rich in Vitamin A." },
-    { id: 7, name: "Green Grapes", category: "Fruits", price: 90, quantity: 18, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f7, description: "Seedless green grapes, sweet and tangy." },
-    { id: 8, name: "Brown Rice", category: "Grains", price: 70, quantity: 80, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f8, description: "Nutritious brown rice for a healthy diet." },
-    { id: 9, name: "Onions", category: "Vegetables", price: 40, quantity: 60, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f9, description: "Fresh red onions for daily cooking." },
-    { id: 10, name: "Apples", category: "Fruits", price: 150, quantity: 25, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f10, description: "Crisp red apples full of flavor." },
+    { id: 1, name: "Fresh Tomatoes", category: "Vegetables", price: 50, quantity: 20, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f1, description: "Juicy red tomatoes, perfect for salads and curries.", rating: 4 },
+    { id: 2, name: "Golden Potatoes", category: "Vegetables", price: 30, quantity: 50, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f2, description: "Farm-fresh potatoes, ideal for fries and gravies.", rating: 5 },
+    { id: 3, name: "Sweet Mangoes", category: "Fruits", price: 120, quantity: 15, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f3, description: "Ripe, juicy mangoes with a natural sweetness.", rating: 5 },
+    { id: 4, name: "Organic Wheat", category: "Grains", price: 40, quantity: 100, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f4, description: "High-quality wheat grains for healthy flour.", rating: 4 },
+    { id: 5, name: "Bananas", category: "Fruits", price: 60, quantity: 30, unit: "Dozen", seller: { id: 1, name: "Ramesh Kumar" }, image: f5, description: "Fresh yellow bananas full of energy.", rating: 3 },
+    { id: 6, name: "Carrots", category: "Vegetables", price: 45, quantity: 25, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f6, description: "Crunchy carrots rich in Vitamin A.", rating: 4 },
+    { id: 7, name: "Green Grapes", category: "Fruits", price: 90, quantity: 18, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f7, description: "Seedless green grapes, sweet and tangy.", rating: 5 },
+    { id: 8, name: "Brown Rice", category: "Grains", price: 70, quantity: 80, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f8, description: "Nutritious brown rice for a healthy diet.", rating: 4 },
+    { id: 9, name: "Onions", category: "Vegetables", price: 40, quantity: 60, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f9, description: "Fresh red onions for daily cooking.", rating: 4 },
+    { id: 10, name: "Apples", category: "Fruits", price: 150, quantity: 25, unit: "KG", seller: { id: 1, name: "Ramesh Kumar" }, image: f10, description: "Crisp red apples full of flavor.", rating: 5 },
   ]);
 
   const [newProduct, setNewProduct] = useState<Product>({
@@ -55,6 +56,7 @@ const Products: React.FC = () => {
     seller: { id: 1, name: "Ramesh Kumar" },
     image: "",
     description: "",
+    rating: 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -74,7 +76,7 @@ const Products: React.FC = () => {
       return;
     }
     const newId = products.length + 1;
-    setProducts([...products, { ...newProduct, id: newId }]);
+    setProducts([...products, { ...newProduct, id: newId, rating: Number(newProduct.rating) }]);
     setShowForm(false);
     setNewProduct({
       id: 0,
@@ -86,6 +88,7 @@ const Products: React.FC = () => {
       seller: { id: 1, name: "Ramesh Kumar" },
       image: "",
       description: "",
+      rating: 0,
     });
   };
 
@@ -132,13 +135,17 @@ const Products: React.FC = () => {
               <p className="text-blue-600 font-bold mt-2">₹{product.price}</p>
               <p className="text-sm text-gray-600">Available: {product.quantity} {product.unit}</p>
               <p className="text-sm text-gray-600">Seller: {product.seller.name}</p>
-              <p className="text-sm text-gray-500 mt-2">{product.description}</p>
+              {/* Rating */}
+              <p className="text-yellow-500 mt-2">
+                {"⭐".repeat(product.rating || 0)} <span className="text-gray-500">({product.rating})</span>
+              </p>
+              <p className="text-sm text-gray-500 mt-1">{product.description}</p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Modal */}
+      {/* Modal for adding product */}
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] p-6 overflow-auto">
@@ -150,6 +157,7 @@ const Products: React.FC = () => {
               <input type="number" name="price" placeholder="Price" value={newProduct.price} onChange={handleChange} className="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500" />
               <input type="number" name="quantity" placeholder="Quantity" value={newProduct.quantity} onChange={handleChange} className="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500" />
               <input type="text" name="unit" placeholder="Unit (e.g., KG, Dozen)" value={newProduct.unit} onChange={handleChange} className="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500" />
+              <input type="number" name="rating" placeholder="Rating (1-5)" value={newProduct.rating} onChange={handleChange} min={1} max={5} className="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500" />
               <textarea name="description" placeholder="Description" value={newProduct.description} onChange={handleChange} className="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500" />
 
               {/* Image Upload */}

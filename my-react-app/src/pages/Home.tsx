@@ -1,32 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [showSignupOptions, setShowSignupOptions] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-green-50">
       {/* Navbar */}
-      <nav className="bg-green-600 text-white p-4 flex justify-between items-center shadow-md">
+      <nav className="bg-green-600 text-white p-4 flex justify-between items-center shadow-md relative">
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
         >
           🌱 Raithu Baazar
         </h1>
-        <div className="flex gap-4">
+        <div className="flex gap-4 relative">
           <button
             onClick={() => navigate("/login")}
             className="px-4 py-2 bg-white text-green-900 rounded-md hover:bg-green-100 transition"
           >
             Login
           </button>
-          <button
-            onClick={() => navigate("/signup")}
-            className="px-4 py-2 bg-white text-green-900 rounded-md hover:bg-yellow-500 transition"
-          >
-            Sign Up
-          </button>
+
+          {/* Sign Up Button */}
+          <div className="relative">
+            <button
+              onClick={() => setShowSignupOptions(!showSignupOptions)}
+              className="px-4 py-2 bg-white text-green-900 rounded-md hover:bg-yellow-500 transition"
+            >
+              Sign Up
+            </button>
+
+            {/* Dropdown Options */}
+            {showSignupOptions && (
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border">
+                <button
+                  onClick={() => navigate("/buyersignup")}
+                  className="block w-full text-left px-4 py-2 text-green-900 hover:bg-green-100"
+                >
+                  Buyer
+                </button>
+                <button
+                  onClick={() => navigate("/sellersignup")}
+                  className="block w-full text-left px-4 py-2 text-green-900 hover:bg-green-100"
+                >
+                  Seller
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -39,9 +62,10 @@ const Home: React.FC = () => {
           Connecting <span className="font-semibold">farmers</span> and{" "}
           <span className="font-semibold">buyers</span> directly to build a
           healthier, sustainable, and fair agricultural ecosystem.  
-          By joining us, you support <span className="font-semibold">local farmers</span>,
-          enjoy <span className="font-semibold">fresh produce</span>, and
-          contribute to a stronger community.
+          By joining us, you support{" "}
+          <span className="font-semibold">local farmers</span>, enjoy{" "}
+          <span className="font-semibold">fresh produce</span>, and contribute
+          to a stronger community.
         </p>
         <button
           onClick={() => navigate("/login")}
