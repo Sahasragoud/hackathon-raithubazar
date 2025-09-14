@@ -1,22 +1,10 @@
-import axios from "axios";
-import type { AxiosResponse } from "axios";
 import type { BuyerRegisterRequest } from "../Type/BuyerRegisterRequest";
-
-const API_URL = "https://your-api-url.com"; // Replace with real backend
+import API from "./Api";
 
 const AuthService = {
-  registerBuyer: (data: BuyerRegisterRequest): Promise<AxiosResponse> => {
-    // Example POST request
-    return axios.post(`${API_URL}/buyers/register`, data);
-  },
-
-  login: (data: any): Promise<AxiosResponse> => {
-    return axios.post(`${API_URL}/login`, data);
-  },
-
-  registerSeller: (data: any): Promise<AxiosResponse> => {
-    return axios.post(`${API_URL}/sellers/register`, data);
-  },
+  registerBuyer: (data: BuyerRegisterRequest) => API.post(`/auth/register-buyer`, data),
+  login: (data: any) => API.post(`/auth/login`, data),
+  registerSeller: (data: any) => API.post(`/auth/register-seller`, data)
 };
 
 export default AuthService;
