@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
           </>
         )}
 
-        {user?.role === "admin" && (
+        {user?.role?.toUpperCase() === "ADMIN" && (
           <>
             <Link to="/buyers" className="hover:text-gray-200">Buyers</Link>
             <Link to="/sellers" className="hover:text-gray-200">Sellers</Link>
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
           </>
         )}
 
-        {user?.role === "buyer" && (
+        {user?.role?.toUpperCase() === "BUYER" && (
           <>
             <Link to="/products" className="hover:text-gray-200">Products</Link>
             <Link to="/myorders" className="hover:text-gray-200">My Orders</Link>
@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
           </>
         )}
 
-        {user?.role === "seller" && (
+        {user?.role?.toUpperCase() === "SELLER" && (
           <>
             <Link to="/my-products" className="hover:text-gray-200">My Products</Link>
             <Link to="/orders" className="hover:text-gray-200">Orders</Link>
