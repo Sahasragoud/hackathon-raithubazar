@@ -24,6 +24,7 @@ public class Product {
     private Double price;
     private Integer quantity;
     private String unit;
+    private Double rating;
 
     @ManyToOne
     @JoinColumn(name = "seller_id", nullable = false)
