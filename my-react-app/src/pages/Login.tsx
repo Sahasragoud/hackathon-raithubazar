@@ -13,9 +13,7 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const response = await AuthService.login({ username, password });
-      localStorage.setItem("user", JSON.stringify(user));
-
-      setUser(response.data.content);
+      setUser(response.data);
       console.log("User logged in:", user);
       alert("Login successful!");
       navigate("/");
