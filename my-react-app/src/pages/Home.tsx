@@ -36,13 +36,13 @@ const Home: React.FC = () => {
             {showSignupOptions && (
               <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border">
                 <button
-                  onClick={() => navigate("/buyersignup")}
+                  onClick={() => navigate("/signup/buyer")}
                   className="block w-full text-left px-4 py-2 text-green-900 hover:bg-green-100"
                 >
                   Buyer
                 </button>
                 <button
-                  onClick={() => navigate("/sellersignup")}
+                  onClick={() => navigate("/signup/seller")}
                   className="block w-full text-left px-4 py-2 text-green-900 hover:bg-green-100"
                 >
                   Seller

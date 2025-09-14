@@ -2,7 +2,7 @@
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Home from "./pages/Home";
 // import Login from "./pages/Login";
- import SellerSignup from "./pages/SellerSignUp";
+// import SellerSignup from "./pages/SellerSignUp";
 // import BuyerSignup from "./pages/BuyerSignUp";
 // import Orders from "./pages/Orders";
 
@@ -12,7 +12,7 @@
 //       <Routes>
 //         <Route path="/" element={<Home />} />
 //         <Route path="/Login" element={<Login />} />
-      <Route path="/SellerSignUp" element={<SellerSignup />} />
+//         <Route path="/SellerSignUp" element={<SellerSignup />} />
 //         <Route path="/BuyerSignUp" element={<BuyerSignup />} />     
 //         <Route path="/Orders" element={<Orders />} />
 //       </Routes>
@@ -124,22 +124,22 @@
 // src/App.tsx
 // src/App.tsx
 import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import BuyerDashboard from "./pages/BuyerDashboard"; // import your dashboard
-// import Cart from "./pages/Cart";
-// import { CartProvider } from "./pages/CartContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import BuyerDashboard from "./pages/BuyerDashboard"; // import your dashboard
+import Cart from "./pages/Cart";
+import { CartProvider } from "./pages/CartContext";
 
-// const App: React.FC = () => {
-//   return (
-//     <CartProvider>
-//       <Router>
-//         <Routes>
-//           <Route path="/" element={<BuyerDashboard />} /> {/* use dashboard here */}
-//           <Route path="/cart" element={<Cart />} />
-//         </Routes>
-//       </Router>
-//     </CartProvider>
-//   );
-// };
+const App: React.FC = () => {
+  return (
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<BuyerDashboard />} /> {/* use dashboard here */}
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </Router>
+    </CartProvider>
+  );
+};
 
 // export default App;
