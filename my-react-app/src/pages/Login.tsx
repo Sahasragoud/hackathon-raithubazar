@@ -16,6 +16,7 @@ const Login: React.FC = () => {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
 
+      console.log("User logged in:", user);
       alert("Login successful!");
       navigate("/");
     } catch (error: any) {
