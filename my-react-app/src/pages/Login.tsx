@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../Services/UserService";
+import type { User } from "./types";
 
 const Login: React.FC = () => {
+  const [user, setUser] = useState<User>();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showSignupOptions, setShowSignupOptions] = useState(false);
@@ -11,11 +13,9 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const response = await AuthService.login({ username, password });
-      const { user, token } = response.data;
-
       localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
 
+      setUser(response.data.content);
       console.log("User logged in:", user);
       alert("Login successful!");
       navigate("/");
