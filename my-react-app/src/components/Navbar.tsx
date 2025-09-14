@@ -38,8 +38,9 @@ const Navbar: React.FC = () => {
         {!user && (
           <>
             <Link to="/" className="hover:text-gray-200">Home</Link>
-            <Link to="/login/buyer" className="hover:text-gray-200">Login</Link>
-            <Link to="/signup/buyer" className="hover:text-gray-200">Register</Link>
+            <Link to="/Login" className="hover:text-gray-200">Login</Link>
+            <Link to="/Signup/buyer" className="hover:text-gray-200">Register(Buy)</Link>
+            <Link to="/Signup/seller" className="hover:text-gray-200">Register(sell)</Link>
           </>
         )}
 
