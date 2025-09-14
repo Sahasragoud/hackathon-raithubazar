@@ -49,9 +49,17 @@ public class AdminController {
 
     // ✅ Get all products (with pagination)
     @GetMapping("/products")
-    public ResponseEntity<Page<Product>> getAllProducts(Pageable pageable) {
-        return ResponseEntity.ok(adminService.getAllProducts(pageable));
+    public ResponseEntity<Page<Product>> getAllProducts(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortField,
+            @RequestParam String sortDirection
+    ) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(direction, sortField);
+        return ResponseEntity.ok(adminService.getAllProducts(PageRequest.of(page,size, sortBy)));
     }
+
 
     // ✅ Delete a user by ID
     @DeleteMapping("/users/{id}")
