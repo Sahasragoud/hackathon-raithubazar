@@ -1,5 +1,6 @@
 // src/pages/FeedbackPage.tsx
 import React, { useState } from "react";
+import Navbar from "../components/Navbar"; // ✅ Import Navbar
 
 // Feedback interface
 interface Feedback {
@@ -34,42 +35,47 @@ const FeedbackPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">📝 Customer Feedback</h2>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navbar */}
+      <Navbar />
 
-      <div className="space-y-4">
-        {feedbacks.map((feedback) => (
-          <div
-            key={feedback.id}
-            className="flex flex-col max-w-2xl w-full mx-auto bg-white rounded-lg shadow-md hover:shadow-xl transition p-4 cursor-pointer"
-            onClick={() => toggleDescription(feedback.id)}
-          >
-            <h3 className="text-lg font-semibold text-gray-800">{feedback.customerName}</h3>
-            <p className="text-sm text-gray-500 mb-2">Product: {feedback.productName}</p>
+      <div className="p-6">
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">📝 Customer Feedback</h2>
 
-            <div className="flex items-center gap-2 mb-2">
-              {/* Stars */}
-              <div className="flex">
-                {Array.from({ length: 5 }, (_, index) => (
-                  <svg
-                    key={index}
-                    className={`w-5 h-5 ${index < feedback.rating ? "text-yellow-400" : "text-gray-300"}`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.287 3.955c.3.921-.755 1.688-1.538 1.118l-3.36-2.44a1 1 0 00-1.175 0l-3.36 2.44c-.783.57-1.838-.197-1.538-1.118l1.287-3.955a1 1 0 00-.364-1.118L2.034 9.382c-.783-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.955z" />
-                  </svg>
-                ))}
+        <div className="space-y-4">
+          {feedbacks.map((feedback) => (
+            <div
+              key={feedback.id}
+              className="flex flex-col max-w-2xl w-full mx-auto bg-white rounded-lg shadow-md hover:shadow-xl transition p-4 cursor-pointer"
+              onClick={() => toggleDescription(feedback.id)}
+            >
+              <h3 className="text-lg font-semibold text-gray-800">{feedback.customerName}</h3>
+              <p className="text-sm text-gray-500 mb-2">Product: {feedback.productName}</p>
+
+              <div className="flex items-center gap-2 mb-2">
+                {/* Stars */}
+                <div className="flex">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <svg
+                      key={index}
+                      className={`w-5 h-5 ${index < feedback.rating ? "text-yellow-400" : "text-gray-300"}`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.287 3.955c.3.921-.755 1.688-1.538 1.118l-3.36-2.44a1 1 0 00-1.175 0l-3.36 2.44c-.783.57-1.838-.197-1.538-1.118l1.287-3.955a1 1 0 00-.364-1.118L2.034 9.382c-.783-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.955z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-sm text-gray-600">({feedback.ratingCount})</span>
               </div>
-              <span className="text-sm text-gray-600">({feedback.ratingCount})</span>
-            </div>
 
-            {/* Customer Description */}
-            {expandedId === feedback.id && (
-              <p className="text-sm text-gray-700 mt-2">{feedback.description}</p>
-            )}
-          </div>
-        ))}
+              {/* Customer Description */}
+              {expandedId === feedback.id && (
+                <p className="text-sm text-gray-700 mt-2">{feedback.description}</p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+// src/pages/ComplaintsPage.tsx
 import React, { useState } from "react";
 import {
   ChevronDownIcon,
@@ -5,6 +6,7 @@ import {
   CheckCircleIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
+import Navbar from "../components/Navbar"; // ✅ Import Navbar
 
 // Complaint interface
 interface Complaint {
@@ -79,90 +81,95 @@ const ComplaintsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6 flex flex-col items-center">
-      {/* Header */}
-      <h2 className="text-3xl font-bold mb-8 text-blue-700 flex items-center gap-2">
-        📢 Customer Complaints
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+      {/* Navbar */}
+      <Navbar />
 
-      {/* Complaints List */}
-      <div className="w-full max-w-2xl space-y-6">
-        {complaints.map((complaint) => (
-          <div
-            key={complaint.id}
-            className="bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6 border-l-4 border-blue-500 flex flex-col items-center text-center"
-          >
-            {/* Customer + Product */}
-            <span className="text-sm text-gray-500 mb-1">
-              Customer ID: {complaint.customerId}
-            </span>
-            <h3 className="text-lg font-semibold text-gray-800">
-              {complaint.customerName}
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Product:{" "}
-              <span className="font-medium text-gray-800">
-                {complaint.productName}
-              </span>
-            </p>
+      <div className="p-6 flex flex-col items-center">
+        {/* Header */}
+        <h2 className="text-3xl font-bold mb-8 text-blue-700 flex items-center gap-2">
+          📢 Customer Complaints
+        </h2>
 
-            {/* Status Badge */}
-            <span
-              className={`mt-3 inline-block px-4 py-1 text-sm font-medium rounded-full transition ${
-                complaint.status === "Resolved"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-            >
-              {complaint.status}
-            </span>
-
-            {/* Toggle Button */}
-            <button
-              onClick={() => toggleStatus(complaint.id)}
-              className={`mt-4 flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium shadow transition ${
-                complaint.status === "Resolved"
-                  ? "bg-red-100 text-red-700 hover:bg-red-200"
-                  : "bg-green-100 text-green-700 hover:bg-green-200"
-              }`}
-            >
-              {complaint.status === "Resolved" ? (
-                <>
-                  <XCircleIcon className="w-5 h-5" />
-                  Mark as Pending
-                </>
-              ) : (
-                <>
-                  <CheckCircleIcon className="w-5 h-5" />
-                  Mark as Resolved
-                </>
-              )}
-            </button>
-
-            {/* Expand/Collapse */}
+        {/* Complaints List */}
+        <div className="w-full max-w-2xl space-y-6">
+          {complaints.map((complaint) => (
             <div
-              onClick={() => toggleComplaint(complaint.id)}
-              className="mt-4 cursor-pointer text-blue-600 flex items-center gap-1"
+              key={complaint.id}
+              className="bg-white rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6 border-l-4 border-blue-500 flex flex-col items-center text-center"
             >
-              {expandedId === complaint.id ? (
-                <>
-                  <ChevronUpIcon className="w-5 h-5" /> Hide Details
-                </>
-              ) : (
-                <>
-                  <ChevronDownIcon className="w-5 h-5" /> View Details
-                </>
+              {/* Customer + Product */}
+              <span className="text-sm text-gray-500 mb-1">
+                Customer ID: {complaint.customerId}
+              </span>
+              <h3 className="text-lg font-semibold text-gray-800">
+                {complaint.customerName}
+              </h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Product:{" "}
+                <span className="font-medium text-gray-800">
+                  {complaint.productName}
+                </span>
+              </p>
+
+              {/* Status Badge */}
+              <span
+                className={`mt-3 inline-block px-4 py-1 text-sm font-medium rounded-full transition ${
+                  complaint.status === "Resolved"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {complaint.status}
+              </span>
+
+              {/* Toggle Button */}
+              <button
+                onClick={() => toggleStatus(complaint.id)}
+                className={`mt-4 flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium shadow transition ${
+                  complaint.status === "Resolved"
+                    ? "bg-red-100 text-red-700 hover:bg-red-200"
+                    : "bg-green-100 text-green-700 hover:bg-green-200"
+                }`}
+              >
+                {complaint.status === "Resolved" ? (
+                  <>
+                    <XCircleIcon className="w-5 h-5" />
+                    Mark as Pending
+                  </>
+                ) : (
+                  <>
+                    <CheckCircleIcon className="w-5 h-5" />
+                    Mark as Resolved
+                  </>
+                )}
+              </button>
+
+              {/* Expand/Collapse */}
+              <div
+                onClick={() => toggleComplaint(complaint.id)}
+                className="mt-4 cursor-pointer text-blue-600 flex items-center gap-1"
+              >
+                {expandedId === complaint.id ? (
+                  <>
+                    <ChevronUpIcon className="w-5 h-5" /> Hide Details
+                  </>
+                ) : (
+                  <>
+                    <ChevronDownIcon className="w-5 h-5" /> View Details
+                  </>
+                )}
+              </div>
+
+              {/* Expanded Complaint Text */}
+              {expandedId === complaint.id && (
+                <p className="text-gray-700 mt-4 border-t pt-4 leading-relaxed">
+                  {complaint.complaintText}
+                </p>
               )}
             </div>
-
-            {/* Expanded Complaint Text */}
-            {expandedId === complaint.id && (
-              <p className="text-gray-700 mt-4 border-t pt-4 leading-relaxed">
-                {complaint.complaintText}
-              </p>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

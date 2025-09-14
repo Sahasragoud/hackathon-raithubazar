@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../pages/CartContext";
 import type { Product } from "../pages/types";
 
+// Import Navbar
+import Navbar from "../components/Navbar";
+
 // Import local images
 import f1 from "../assets/f1.jpeg";
 import f2 from "../assets/f2.jpg";
@@ -31,21 +34,16 @@ const products: Product[] = [
 
 const BuyerDashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { cart, addToCart } = useCart();
+  const { addToCart } = useCart();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 relative">
-      {/* Fixed Cart Button */}
-      <button
-        onClick={() => navigate("/cart")}
-        className="fixed top-4 right-4 z-50 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-lg"
-      >
-        Cart ({cart.length})
-      </button>
+    <div className="min-h-screen bg-gray-100 p-6">
+      {/* Navbar */}
+      <Navbar />
 
       {/* Header */}
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">🛍 Buyer Dashboard</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-4">🛍 Buyer Dashboard</h1>
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

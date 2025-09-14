@@ -1,7 +1,11 @@
+// src/pages/BuyerSignUp.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../Services/UserService";
 import type { BuyerRegisterRequest } from "../Type/BuyerRegisterRequest";
+
+// Import Navbar
+import Navbar from "../components/Navbar";
 
 const BuyerSignUp: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +18,7 @@ const BuyerSignUp: React.FC = () => {
 
   const handleSignUp = async () => {
     const formData: BuyerRegisterRequest = {
-      name: username, // if backend expects "name", map username here
+      name: username, // map username to backend "name"
       email,
       address,
       phone,
@@ -23,11 +27,10 @@ const BuyerSignUp: React.FC = () => {
 
     try {
       const response = await AuthService.registerBuyer(formData);
-
       console.log("Response:", response.data);
 
       alert("Buyer Sign Up successful!");
-      navigate("/login");
+      navigate("/login/buyer");
     } catch (error: any) {
       alert(error.response?.data?.message || "Buyer Sign Up failed");
       console.error("Buyer Sign Up error:", error);
@@ -35,89 +38,94 @@ const BuyerSignUp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-md shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-green-700">
-          Buyer Sign Up
-        </h2>
+    <div className="min-h-screen bg-green-50 px-4">
+      {/* Navbar */}
+      <Navbar />
 
-        {/* Username */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Username
-        </label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your username"
-        />
+      <div className="flex items-center justify-center mt-6">
+        <div className="w-full max-w-md bg-white p-8 rounded-md shadow-md">
+          <h2 className="text-2xl font-bold mb-6 text-center text-green-700">
+            Buyer Sign Up
+          </h2>
 
-        {/* Email */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Email
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your email"
-        />
+          {/* Username */}
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Username
+          </label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter your username"
+          />
 
-        {/* Address */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Address
-        </label>
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your address"
-        />
+          {/* Email */}
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter your email"
+          />
 
-        {/* Phone */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Phone Number
-        </label>
-        <input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your phone number"
-        />
+          {/* Address */}
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Address
+          </label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter your address"
+          />
 
-        {/* Password */}
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Password
-        </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-6 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your password"
-        />
+          {/* Phone */}
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter your phone number"
+          />
 
-        {/* Button */}
-        <button
-          onClick={handleSignUp}
-          className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
-        >
-          Sign Up
-        </button>
+          {/* Password */}
+          <label className="block mb-2 text-sm font-medium text-gray-700">
+            Password
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full mb-6 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Enter your password"
+          />
 
-        <p className="mt-4 text-center">
-          Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className="text-green-600 cursor-pointer hover:underline"
+          {/* Button */}
+          <button
+            onClick={handleSignUp}
+            className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
           >
-            Login
-          </span>
-        </p>
+            Sign Up
+          </button>
+
+          <p className="mt-4 text-center">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login/buyer")}
+              className="text-green-600 cursor-pointer hover:underline"
+            >
+              Login
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
