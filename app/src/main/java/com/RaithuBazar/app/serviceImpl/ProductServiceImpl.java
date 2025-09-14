@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProductWithImage(ProductRequest dto, MultipartFile imageFile) throws IOException {
-        // 1️⃣ Save product first
+
         Product product = Product.builder()
                 .name(dto.getName())
                 .category(dto.getCategory())
@@ -57,12 +57,11 @@ public class ProductServiceImpl implements ProductService {
                 .build();
         product = productRepository.save(product);
 
-        // 2️⃣ Save image (if provided)
         if (imageFile != null && !imageFile.isEmpty()) {
             String imageUrl = saveImage(imageFile);
 
             ProductImage productImage = ProductImage.builder()
-                    .imageUrl(imageUrl)   // ✅ store relative URL
+                    .imageUrl(imageUrl)
                     .product(product)
                     .build();
 
@@ -119,7 +118,6 @@ public class ProductServiceImpl implements ProductService {
             // delete ProductImage record
             productImageRepository.delete(productImage);
         }
-
         productRepository.deleteById(id);
     }
 

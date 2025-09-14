@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    // Find orders placed by a buyer
     Page<Order> findByBuyerId(Long buyerId, Pageable pageable);
 
-    // Find orders received by a seller
     Page<Order> findBySellerId(Long sellerId, Pageable pageable);
 }
